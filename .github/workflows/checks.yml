@@ -6,10 +6,10 @@ on: [push]
 jobs:
   test-lint:
     name: Test and Lint
-    runs-on: ubunto-20.04
+    runs-on: ubuntu-20.04
     steps:
       - name: login to Docker Hub
-        user: docker/login-action@v1
+        uses: docker/login-action@v1
         with:
           username: ${{ secrets.DOCKERHUB_USER }}
           password: ${{ secrets.DOCKERHUB_TOKEN }
@@ -18,4 +18,4 @@ jobs:
       - name: Test
         run: docker compose run --rm app sh -c "python manage.py test"
       - name: Lint
-        run: docker composer run --rm app sh -c "flake8"
+        run: docker compose run --rm app sh -c "flake8"
