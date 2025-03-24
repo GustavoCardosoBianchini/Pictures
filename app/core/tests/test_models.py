@@ -45,7 +45,7 @@ class ModelUserTest(TestCase):
         '''test create a super user'''
         email = 'teste@example.com'
         password = 'pas123'
-        user = get_user_model().objects.create_super_user(
+        user = get_user_model().objects.create_superuser(
             email=email,
             password=password
         )
@@ -54,6 +54,20 @@ class ModelUserTest(TestCase):
         self.assertTrue(user.check_password(password))
         self.assertTrue(user.is_staff)
         self.assertTrue(user.is_superuser)
+
+    def test_create_postagem(self):
+        email = 'teste@example.com'
+        password = 'pas123'
+        user = get_user_model().objects.create_superuser(
+            email=email,
+            password=password
+        )
+        postagem = models.ModelPostagem.objects.create(
+            user=user,
+            txt_postagem ='example test text'
+        )
+
+        self.assertEqual(str(postagem), postagem.txt_postagem)
 
 
 
